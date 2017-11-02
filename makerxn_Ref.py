@@ -24,6 +24,9 @@ from nanoreactor.nifty import commadash
 # 5) --end ending frame (indexed from zero)
 # 6) --f(list of index numbers of interest throughout the reaction)
 
+#input example:
+#makerxn_Ref.py trajectory.xyz --qs=charge-spin.txt --frm=100  --end=600  --stride=1 --f=71,26,7,6,4
+
 parser=argparse.ArgumentParser()
 parser.add_argument('xyzin', help='XYZ input file')
 parser.add_argument('--qs',type=str)
@@ -56,10 +59,10 @@ Pcut=P[frameInit:frameFinal:stride]
 # ---- neutralize and chop frames with newly selected atoms
 # output of frames charges, ready for Refine.py!!
 
-PcutK1=Pcut.atom_select(8, build_topology=False)
-PcutK2=Pcut.atom_select(13, build_topology=False)
-PcutK3=Pcut.atom_select(34, build_topology=False)
-PcutK4=Pcut.atom_select(42, build_topology=False)
+PcutK1=Pcut.atom_select(26, build_topology=False)
+PcutK2=Pcut.atom_select(30, build_topology=False)
+PcutK3=Pcut.atom_select(20, build_topology=False)
+PcutK4=Pcut.atom_select(17, build_topology=False)
 Mcut=Mcut.atom_select(atomindex, build_topology=False)
 Pcut=Pcut.atom_select(atomindex, build_topology=False)
 
@@ -116,6 +119,8 @@ print "K3 mean,stdev axis=0"
 print Pdata3[:,:,0].mean(axis=0), Pdata3[:,:,0].std(axis=0)
 print "K4 mean,stdev axis=0"
 print Pdata4[:,:,0].mean(axis=0), Pdata4[:,:,0].std(axis=0)
+
+print "26 30 20 17"
 
 charges = Pdata[:,:,0].sum(axis=1)
 spins = Pdata[:,:,1].sum(axis=1)
